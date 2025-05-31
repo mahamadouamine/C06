@@ -10,6 +10,7 @@ int main() {
     fgets(phrase, sizeof(phrase), stdin);  
     // Suppression du caractère '\n' si présent (ajouté par fgets quand l'utilisateur appuie sur Entrée)
     phrase[strcspn(phrase, "\n")] = '\0';
+    int longueur = strlen(phrase);
    
     // Parcourir chaque caractère de la phrase
     for (int i = 0; phrase[i] != '\0'; i++) {
