@@ -1,33 +1,26 @@
 #include <stdio.h>
+#include <ctype.h>  // pour tolower() et isalpha()
 
 int main() {
-    char c;                    // Pour stocker chaque caractère
-    int voyelles = 0;          // Compteur de voyelles
-    int consonnes = 0;         // Compteur de consonnes
+    char str[200];
+    int voyelles = 0, consonnes = 0;
 
-    printf("Écris une phrase :\n");
+    // Lire la ligne entrée directement sans afficher de message
+    fgets(str, sizeof(str), stdin);
 
-    // Lire chaque caractère jusqu'à Entrée (fin de ligne)
-    while ((c = getchar()) != '\n') {
-        // Si c'est une lettre majuscule, on la transforme en minuscule
-        if (c >= 'A' && c <= 'Z') {
-            c = c + 32;
-        }
+    for (int i = 0; str[i] != '\0'; i++) {
+        char c = tolower(str[i]);
 
-        // Vérifie si c'est une lettre (a à z)
-        if (c >= 'a' && c <= 'z') {
-            // Vérifie si c'est une voyelle
+        if (isalpha(c)) {
             if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y') {
-                voyelles = voyelles + 1;
+                voyelles++;
             } else {
-                consonnes = consonnes + 1;
+                consonnes++;
             }
         }
-        // Sinon, on ignore (espaces, chiffres, ponctuation...)
     }
 
-    // Affiche les résultats
+    // Affichage propre comme demandé
     printf("Voyelles : %d, Consonnes : %d\n", voyelles, consonnes);
-
     return 0;
 }
