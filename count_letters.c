@@ -1,42 +1,33 @@
 #include <stdio.h>
-#include <ctype.h>
-#include <string.h>
 
 int main() {
-    char phrase[100];
-    int nbV = 0;
-    int nbC = 0;
-    int dejaVu[26] = {0}; // 0 = pas encore vue, 1 = déjà vue (pour a-z)
+    char c;                    // Pour stocker chaque caractère
+    int voyelles = 0;          // Compteur de voyelles
+    int consonnes = 0;         // Compteur de consonnes
 
-    // Lecture de la chaîne avec protection
-    fgets(phrase, sizeof(phrase), stdin);
-    phrase[strcspn(phrase, "\n")] = '\0'; // suppression du '\n' à la fin
+    printf("Écris une phrase :\n");
 
-    // Parcourir chaque caractère
-    for (int i = 0; phrase[i] != '\0'; i++) {
-        char lettre = tolower(phrase[i]); // mise en minuscule
+    // Lire chaque caractère jusqu'à Entrée (fin de ligne)
+    while ((c = getchar()) != '\n') {
+        // Si c'est une lettre majuscule, on la transforme en minuscule
+        if (c >= 'A' && c <= 'Z') {
+            c = c + 32;
+        }
 
-        // Vérifier si c’est une lettre entre a et z
-        if (lettre >= 'a' && lettre <= 'z') {
-            int index = lettre - 'a'; // exemple : 'b' - 'a' = 1
-
-            // Si on n’a pas encore compté cette lettre
-            if (dejaVu[index] == 0) {
-                dejaVu[index] = 1; // Marquer comme vue
-
-                // Si c’est une voyelle
-                if (lettre == 'a' || lettre == 'e' || lettre == 'i' || lettre == 'o' || lettre == 'u') {
-                    nbV++;
-                } else {
-                    nbC++;
-                }
+        // Vérifie si c'est une lettre (a à z)
+        if (c >= 'a' && c <= 'z') {
+            // Vérifie si c'est une voyelle
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y') {
+                voyelles = voyelles + 1;
+            } else {
+                consonnes = consonnes + 1;
             }
         }
+        // Sinon, on ignore (espaces, chiffres, ponctuation...)
     }
 
-    // Affichage final
-    printf("Nombre de voyelles : %d\n", nbV);
-    printf("Nombre de consonnes : %d\n", nbC);
+    // Affiche les résultats
+    printf("Voyelles : %d, Consonnes : %d\n", voyelles, consonnes);
 
     return 0;
 }
